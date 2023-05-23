@@ -5,7 +5,9 @@ import { MainContainer,
   Row, 
   Column, 
   KeyNumberContainer,
-  Screen, } from "../styles/Styles";
+  Screen,
+  NavBar,
+  Footer } from "../styles/Styles";
 
 export const Calculadora = () => {
   const [screenNum, setScreenNum] = useState('')
@@ -51,13 +53,43 @@ export const Calculadora = () => {
       setScreenNum(Number(firstNum) + Number(screenNum))
     }
   }
+
+  const clear = () => {
+    setScreenNum('')
+  }
+
+  const percentage = () => {
+    setScreenNum(Number(screenNum)/100)
+  }
+
+  const double = () => {
+    setScreenNum(Number(screenNum)**2)
+  }
+
+  const changeSign = () => {
+    if (screenNum > 0) {
+      setScreenNum(-screenNum)
+    } else {
+      setScreenNum(Math.abs(screenNum))
+    }
+  }
   
   return(
+    <>
     <MainContainer>
+      <NavBar>
+        <p>Calculadora Simples</p>
+      </NavBar>
       <KeyNumberContainer>
         <Screen>
           <h1>{screenNum}</h1>
         </Screen>
+        <Row>
+          <Button func={clear} id='C'></Button>
+          <Button func={double} id='^2'></Button>
+          <Button func={percentage} id='%'></Button>
+          <Button func={changeSign} id='+/-'></Button>
+        </Row>
         <Row>
           <Column>
             <Button func={inputKey} id={7}></Button>
@@ -85,6 +117,12 @@ export const Calculadora = () => {
           </Column>
         </Row>
       </KeyNumberContainer>
+
+      <Footer>
+        <p><span>Calculadora Simples</span> &copy; 2023</p>
+      </Footer>
+
     </MainContainer>
+    </>
   )
 }
